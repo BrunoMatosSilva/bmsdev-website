@@ -21,7 +21,7 @@ export const Header = () => {
       <div className="container flex items-center justify-between">
         <Link href="/">
           <Image
-          width={140}
+          width={100}
           height={60}
           src="/images/logo.svg"
           alt="Logo BMSDev"
