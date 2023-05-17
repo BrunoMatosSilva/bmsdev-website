@@ -14,10 +14,6 @@ type HeroSectionProps = {
   homeInfo: HomePageInfo
 }
 
-export const metadata = {
-  title: 'Home | BMSDev',
-}
-
 export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
 
   const handleContact = () => {
@@ -44,10 +40,12 @@ export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
             </div>
 
             <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
-              {homeInfo.technologies.map((tech) => (
+              {homeInfo.technologies.map((tech, i) => (
                 <TechBadge
                 key={tech.name}
                 name={tech.name}
+                {...techBadgeAnimation}
+                transition={{ duration: 0.2, delay: i * 0.1 }}
                 />
               ))}
             </div>

@@ -1,9 +1,9 @@
-import { ProjectDetails } from "@/app/components/pages/project/project-details";
-import { ProjectSections } from "@/app/components/pages/project/project-sections";
-import { ProjectPageData, ProjectsPageStaticData } from "@/app/types/page-info";
-import { fetchHyGraphQuery } from "@/app/utils/fetch-hygraph-query";
+import { ProjectDetails } from '@/app/components/pages/project/project-details'
+import { ProjectSections } from '@/app/components/pages/project/project-sections'
+import { ProjectPageData, ProjectsPageStaticData } from '@/app/types/page-info'
+import { fetchHygraphQuery } from '@/app/utils/fetch-hygraph-query'
 import { Metadata } from 'next'
-import { notFound } from "next/navigation";
+import { notFound } from 'next/navigation'
 
 type ProjectProps = {
   params: {
@@ -11,7 +11,7 @@ type ProjectProps = {
   }
 }
 
-const getProjectDetails = async (slug: string):Promise<ProjectPageData> => {
+const getProjectDetails = async (slug: string): Promise<ProjectPageData> => {
   const query = `
   query ProjectQuery() {
     project(where: {slug: "${slug}"}) {
@@ -41,8 +41,7 @@ const getProjectDetails = async (slug: string):Promise<ProjectPageData> => {
     }
   }
   `
-
-  const data = fetchHyGraphQuery(
+  const data = fetchHygraphQuery<ProjectPageData>(
     query,
     1000 * 60 * 60 * 24, // 1 day
   )
@@ -50,15 +49,15 @@ const getProjectDetails = async (slug: string):Promise<ProjectPageData> => {
   return data
 }
 
-export default async function project({ params: {slug} } : ProjectProps) {
-  const { project } = await getProjectDetails(slug);
+export default async function Project({ params: { slug } }: ProjectProps) {
+  const { project } = await getProjectDetails(slug)
 
   if (!project?.title) return notFound()
 
-  return(
+  return (
     <>
-    <ProjectDetails project={project} />
-    <ProjectSections sections={project.sections} />
+      <ProjectDetails project={project} />
+      <ProjectSections sections={project.sections} />
     </>
   )
 }
@@ -71,7 +70,7 @@ export async function generateStaticParams() {
       }
     }
   `
-  const { projects } = await fetchHyGraphQuery(query)
+  const { projects } = await fetchHygraphQuery<ProjectsPageStaticData>(query)
 
   return projects
 }

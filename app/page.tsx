@@ -3,7 +3,7 @@ import { HighlightedProjects } from "./components/pages/home/highlighted-project
 import { KnowsTechs } from "./components/pages/home/known-techs";
 import { WorkExperience } from "./components/pages/home/work-experience";
 import { HomePageData } from "./types/page-info";
-import { fetchHyGraphQuery } from "./utils/fetch-hygraph-query";
+import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
 
 export const metadata = {
   title: 'Home | BMSDev',
@@ -62,7 +62,7 @@ const getPageData = async (): Promise<HomePageData> => {
   }
 `
 
-  return fetchHyGraphQuery(
+  return fetchHygraphQuery(
     query,
     60 * 60 * 24 // 24 hours
   )
