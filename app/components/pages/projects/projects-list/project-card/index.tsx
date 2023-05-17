@@ -21,7 +21,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         />
       </div>
 
-      <div className="flex-1  flex flex-col p-8">
+      <div className="flex-1 flex flex-col p-8">
         <strong className="font-medium text-gray-50/90 group-hover:text-emerald-500 transition-colors">
           {project.title}
         </strong>

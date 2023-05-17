@@ -11,7 +11,7 @@ export const metadata = {
 
 const getPageData = async (): Promise<HomePageData> => {
   const query = `
-  query PageDataQuery {
+  query PageInfoQuery {
     page(where: {slug: "home"}) {
       introduction {
         raw
