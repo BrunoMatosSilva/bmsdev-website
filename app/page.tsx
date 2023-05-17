@@ -5,9 +5,13 @@ import { WorkExperience } from "./components/pages/home/work-experience";
 import { HomePageData } from "./types/page-info";
 import { fetchHyGraphQuery } from "./utils/fetch-hygraph-query";
 
+export const metadata = {
+  title: 'Home | BMSDev',
+}
+
 const getPageData = async (): Promise<HomePageData> => {
   const query = `
-  query PageHomeQuery {
+  query PageDataQuery {
     page(where: {slug: "home"}) {
       introduction {
         raw
@@ -39,6 +43,22 @@ const getPageData = async (): Promise<HomePageData> => {
         }
       }
     }
+    workExperiences {
+      companyLogo {
+        url
+      }
+      role
+      companyName
+      companyUrl
+      startDate
+      endDate
+      description {
+        raw
+      }
+      technologies {
+        name
+      }
+    }
   }
 `
 
@@ -49,14 +69,14 @@ const getPageData = async (): Promise<HomePageData> => {
 }
 
 export default async function Home() {
-  const {page: pageData} = await getPageData();
+  const {page: pageData, workExperiences} = await getPageData();
 
   return (
     <>
       <HeroSection homeInfo={pageData} />
       <KnowsTechs techs={pageData.knownTechs}/>
       <HighlightedProjects projects={pageData.highlightProjects} />
-      <WorkExperience />
+      <WorkExperience experiences={workExperiences} />
     </>
   )
 }

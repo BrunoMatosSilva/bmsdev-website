@@ -7,9 +7,15 @@ import { TechBadge } from "@/app/components/tech-badge"
 import { HomePageInfo } from "@/app/types/page-info"
 import Image from "next/image"
 import { HiArrowNarrowRight } from "react-icons/hi"
+import { motion } from 'framer-motion'
+import { techBadgeAnimation } from '@/app/lib/animations'
 
 type HeroSectionProps = {
   homeInfo: HomePageInfo
+}
+
+export const metadata = {
+  title: 'Home | BMSDev',
 }
 
 export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
@@ -23,12 +29,18 @@ export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
   return (
     <section className="w-full lg:h-[755px] bg-hero-image bg-cover bg-center bg-no-repeat flex flex-col justify-end pb-10 sm:pb-32 py-32 lg:pb-[110px]">
       <div className="container flex items-start justify-between flex-col-reverse lg:flex-row">
-        <div className="w-full lg:max-w-[530px]">
+        <motion.div 
+        className="w-full lg:max-w-[530px]"
+        initial={{ opacity: 0, x: -100 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -100 }}
+        transition={{ duration: 0.5 }}
+        >
           <p className="font-mono text-emerald-400">Olá, meu nome é</p>
           <h2 className="text-4xl font-medium mt-2">Bruno Matos</h2>
 
             <div className="text-gray-400 my-6 text-sm sm:text-base">
-            <RichText content={homeInfo.introduction.raw} />
+              <RichText content={homeInfo.introduction.raw} />
             </div>
 
             <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
@@ -62,8 +74,15 @@ export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
                 ))}
               </div>
             </div>
-        </div>
-
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 200, scale: 0.5 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 200, scale: 0.5 }}
+          transition={{ duration: 0.5 }}
+          className="origin-center"
+        >
         <Image 
           width={420}
           height={404}
@@ -71,6 +90,7 @@ export const HeroSection = ({ homeInfo }: HeroSectionProps) => {
           src={homeInfo.profilePicture.url}
           alt="Foto de perfil do Bruno Matos"
         />
+      </motion.div>
       </div>
     </section>
   )

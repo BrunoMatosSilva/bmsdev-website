@@ -2,6 +2,7 @@
 
 import { TbArrowNarrowUp } from "react-icons/tb"
 import { Button } from "../button"
+import { AnimatePresence, motion } from 'framer-motion'
 import { useCallback, useEffect, useState } from "react"
 
 export const BackToTop = () => {
@@ -22,17 +23,22 @@ export const BackToTop = () => {
   },[handleScroll])
 
   return (
-    <>
+    <AnimatePresence>
     {show && (
-      <div className="fixed right-4 bottom-4 z-20">
+      <motion.div 
+      className="fixed right-4 bottom-4 z-20"
+          initial={{ opacity: 0, right: -10 }}
+          animate={{ opacity: 1, right: 16 }}
+          exit={{ opacity: 0, right: -10 }}
+      >
       <Button 
       className="shadow-lg shadow-emerald-400/20"
       onClick={scrollToTop}
       >
         <TbArrowNarrowUp size={20} />
       </Button>
-    </div>    
+    </motion.div>    
     )}
-    </>
+    </AnimatePresence>
   )
 }
