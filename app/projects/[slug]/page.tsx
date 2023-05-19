@@ -83,7 +83,7 @@ export async function generateMetadata({
 
   return {
     title: project.title,
-    description: project.shortDescription,
+    description: project.description.text,
     openGraph: {
       images: [
         {
